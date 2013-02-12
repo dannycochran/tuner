@@ -30,17 +30,6 @@
 	<body>
 		<div class='background'></div>
 		<div class='wrapper'>
-			<header>
-				<h1>
-					Craig Spence
-				</h1>
-				<div>
-					<span>Bachelor of Engineering</span>
-					 with 
-					<span>Honours - Multimedia Systems Engineering</span>
-					<hr/>
-				</div>
-			</header>
 			<span class='nav-anchor'></span>
 			<nav>
 				<span class='back offLeft animate'>&larr;&nbsp;Back</span>
@@ -51,25 +40,11 @@
 				</div>
 			</nav>
 			<section class='project-list'>
-				<div class='project offLeft animate' id='clouds'>
-					<img src='images/clouds.jpg'/>
-					<div class='mask blue'>
-			    		<h2>DYNAMIC CLOUDS</h2>
-		    			<p>3D simulation of clouds, using cellular automata.</p>
-					</div>
-				</div>
 				<div class='project offLeft animate' id='tuner'>
 					<img src='images/tuner.jpg'/>
 					<div class='mask red'>
 			    		<h2>PURE JAVASCRIPT GUITAR TUNER</h2>
 		    			<p>Experimental JS Chromatic Tuner, using the Web Audio API & getUserMedia()</p>
-					</div>
-				</div>
-				<div class='project offLeft animate' id='tetris'>
-					<img src='images/tetris.jpg'/>
-					<div class='mask green'>
-			    		<h2>TETRIS AI</h2>
-		    			<p>Simple Tetris playing artificial intelligence, using constraint satisfaction techniques.</p>
 					</div>
 				</div>
 			</section>
@@ -78,14 +53,7 @@
 					<canvas></canvas>
 					<div></div>
 				</div>
-				<div class='offRight tetris animate'>
-					<canvas></canvas>
-				</div>
-				<div class='offRight clouds animate'>
-					<div></div>
-				</div>
 			</section>
-			
 		</div>
 		<script id="vs" type="x-shader/x-vertex">
 		    varying vec2 vUv;
