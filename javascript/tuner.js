@@ -311,6 +311,9 @@
         }
         return [note, diff];
       };
+      
+      var notesArray = [];
+      
       display = {
         draw: function(note, diff) {
           var displayDiv, displayStr;
@@ -337,7 +340,27 @@
               displayStr += diff < -0.25 ? '&nbsp;&nbsp;>' : '&nbsp;&nbsp;&nbsp;';
             }
           }
-          return displayDiv.html(displayStr);
+          notesArray.push(displayStr);
+          if (notesArray.length>=1) {				
+			    var modeMap = {};
+			    var maxEl = notesArray[0], maxCount = 1;
+			    for(var i = 0; i < notesArray.length; i++)
+			    {
+			    	var el = notesArray[i];
+			    	if(modeMap[el] == null)
+			    		modeMap[el] = 1;
+			    	else
+			    		modeMap[el]++;	
+			    	if(modeMap[el] > maxCount)
+			    	{
+			    		maxEl = el;
+			    		maxCount = modeMap[el];
+			    	}
+			    }
+			    return displayDiv.html(maxEl);
+          }
+         console.log(notesArray); 
+         notesArray = [];
         },
         clear: function() {
           var displayDiv;
@@ -359,13 +382,13 @@
         maxTime = newMaxTime > maxTime ? newMaxTime : maxTime;
         timeWidth = canvas.width / buffer.length;
         for (s = _i = 0, _ref = buffer.length; 0 <= _ref ? _i < _ref : _i > _ref; s = 0 <= _ref ? ++_i : --_i) {
-          context.fillStyle = '#7F7';
+          context.fillStyle = '#39B7CD';
           context.fillRect(timeWidth * s, 250, timeWidth, -(canvas.height / 4) * (buffer[s] / maxTime));
         }
         freqWidth = canvas.width / (fft.spectrum.length / 8);
         _results = [];
         for (f = _j = 0, _ref1 = fft.spectrum.length / 8; 0 <= _ref1 ? _j < _ref1 : _j > _ref1; f = 0 <= _ref1 ? ++_j : --_j) {
-          context.fillStyle = '#77F';
+          context.fillStyle = '#39B7CD';
           _results.push(context.fillRect(freqWidth * f, canvas.height - 50, freqWidth, -Math.pow(5e3 * fft.spectrum[f], 1.75)));
         }
         return _results;

@@ -11,8 +11,6 @@
 	<script type='text/javascript' src='libraries/underscore.js'></script>
 	<script type='text/javascript' src='javascript/index.js'></script>
 	<script type='text/javascript' src='javascript/tuner.js'></script>
-	<script type='text/javascript' src='javascript/tetris.js'></script>
-	<script type='text/javascript' src='javascript/clouds.js'></script>
 	<script type="text/javascript">
 
 	  var _gaq = _gaq || [];
@@ -28,24 +26,8 @@
 	</script>
 	</head>
 	<body>
-		<div class='background'></div>
-		<div class='wrapper'>
-			<span class='nav-anchor'></span>
-			<nav>
-				<span class='back offLeft animate'>&larr;&nbsp;Back</span>
-				<h2 class='offRight animate'></h2>
- 				<div class='offRight animate'>
-	                <span>VIEW SOURCE&nbsp;&rarr;</span>
-	 				<ul class='offRight animate'></ul>
-				</div>
-			</nav>
 			<section class='project-list'>
-				<div class='project offLeft animate' id='tuner'>
-					<img src='images/tuner.jpg'/>
-					<div class='mask red'>
-			    		<h2>PURE JAVASCRIPT GUITAR TUNER</h2>
-		    			<p>Experimental JS Chromatic Tuner, using the Web Audio API & getUserMedia()</p>
-					</div>
+		    		<h2 class='project' id='tuner'>Load Tuner</h2>
 				</div>
 			</section>
 			<section class='project-displays'>
@@ -54,7 +36,6 @@
 					<div></div>
 				</div>
 			</section>
-		</div>
 		<script id="vs" type="x-shader/x-vertex">
 		    varying vec2 vUv;
             void main() {
