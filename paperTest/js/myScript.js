@@ -16,34 +16,50 @@
 
 	var width = 500,
 		height = 100,
+		stroke = 6;
 		fontSize = height / 3,
 		fontSpace = width / 5,
 		fontHeightMargin = height/(fontSize/5);
 	
     //static points
-	var aPoint = {width: -width, height:fontHeightMargin};
-	var aSharpPoint = {width: -width+fontSpace, height:fontHeightMargin};
-	var bPoint = {width: -width+fontSpace*2, height:fontHeightMargin};
-	var cPoint = {width: -width+fontSpace*3, height:fontHeightMargin};
-	var cSharpPoint = {width: -width+fontSpace*4, height:fontHeightMargin};
-	var dPoint = {width: -width+fontSpace*5, height:fontHeightMargin};
-	var dSharpPoint = {width: -width+fontSpace*6, height:fontHeightMargin};
-	var ePoint = {width: -width+fontSpace*7, height:fontHeightMargin};
-	var fPoint = {width: -width+fontSpace*8, height:fontHeightMargin};
-	var fSharpPoint = {width: -width+fontSpace*9, height:fontHeightMargin};
-	var gPoint = {width: -width+fontSpace*10, height:fontHeightMargin};
-	var gSharpPoint = {width: -width+fontSpace*11, height:fontHeightMargin};
+	var aPoint = {width: -width, height:fontHeightMargin},
+		aSharpPoint = {width: -width+fontSpace, height:fontHeightMargin},
+		bPoint = {width: -width+fontSpace*2, height:fontHeightMargin},
+		cPoint = {width: -width+fontSpace*3, height:fontHeightMargin},
+		cSharpPoint = {width: -width+fontSpace*4, height:fontHeightMargin},
+		dPoint = {width: -width+fontSpace*5, height:fontHeightMargin},
+		dSharpPoint = {width: -width+fontSpace*6, height:fontHeightMargin},
+		ePoint = {width: -width+fontSpace*7, height:fontHeightMargin},
+		fPoint = {width: -width+fontSpace*8, height:fontHeightMargin},
+		fSharpPoint = {width: -width+fontSpace*9, height:fontHeightMargin},
+		gPoint = {width: -width+fontSpace*10, height:fontHeightMargin},
+		gSharpPoint = {width: -width+fontSpace*11, height:fontHeightMargin};
 
-// rectangle clipMask
-	var size = new Size(width,height);
-		point = new Point(view.center._x/2,view.center._y/2)
-		center = view.center;
-		rectangle = new Rectangle(0, size);
-		cornerSize = new Size(10,10);
+
+// rectangle housing notes clipMask
+	var size = new Size(width,height),
+		rectangle = new Rectangle(0, size),
+		cornerSize = new Size(10,10),
 		roundRectangleMask = new Path.RoundRectangle(rectangle,cornerSize);
-	roundRectangleMask.strokeWidth = 6;
 	roundRectangleMask.position = view.center;
+	roundRectangleMask.clipMask = true;
 
+// pseudo spectrometer
+	var rectangleSpec = new Rectangle(0, size);
+	var roundSpec = new Path.RoundRectangle(rectangleSpec,cornerSize);
+		roundSpec.strokeColor = '#0EBFE9';
+		roundSpec.strokeWidth = stroke;
+		roundSpec.position = new Point(view.center._x,view.center._y+height+20);
+	
+	var gSpotSize = new Size(width/8, height-stroke),
+		gSpotRect = new Rectangle(0, gSpotSize),
+		gSpot = new Path.Rectangle(gSpotRect);
+	gSpot.fillColor = 'green';
+	gSpot.position = roundSpec.position;
+	
+	var gLocator = new Path.Circle(roundSpec.position, 10);
+	gLocator.fillColor = 'blue';
+	
 // text
 	var A = new PointText(aPoint.width,aPoint.height);
 		A.content = frequencies.A;
@@ -82,30 +98,32 @@
 		gSharp.content = frequencies.gSharp;
 		gSharp.characterStyle.fontSize = fontSize;
 	
-	var notesGroup = new Group([A,aSharp ,B,C,cSharp,D,dSharp,E,F,fSharp,G,gSharp]); 
+	var notesGroup = new Group([A,aSharp,B,C,cSharp,D,dSharp,E,F,fSharp,G,gSharp]); 
 		notesGroup.position = view.center;
 	
 	var group = new Group([roundRectangleMask,notesGroup]);
-		group.clipped = true;
 
-// rectangle
+// rectangle housing notes
 	var roundRectangle = new Path.RoundRectangle(rectangle,cornerSize);
 		roundRectangle.strokeColor = '#0EBFE9';
-		roundRectangle.strokeWidth = 12;
+		roundRectangle.strokeWidth = stroke;
 		roundRectangle.position = view.center;
 
 // function testers
-function onResize(event) {
-    roundRectangleMask.position = view.center;
-	roundRectangle.position = view.center;
-	notesGroup.position = view.center;
-}
-
-function onMouseDown(event) {
-    console.log(notesGroup.position);
-    notesGroup.position = new Point(aPoint.width+fontSpace*13.2,notesGroup.position._y);
-    console.log(notesGroup.position);
-}
+	function onResize(event) {
+	    roundRectangleMask.position = view.center;
+		roundRectangle.position = view.center;
+		roundSpec.position = new Point(view.center._x,view.center._y+height+20)
+		gSpot.position = roundSpec.position;
+		gLocator.position = roundSpec.position;
+		notesGroup.position = view.center;
+	}
+	
+	function onMouseDown(event) {
+	    notesGroup.position = new Point(aPoint.width+fontSpace*12.5,notesGroup.position._y);
+	    A.characterStyle.fillColor = "green";
+	    console.log(notesGroup.position);
+	}
 
 // pseudo code
 
@@ -113,5 +131,6 @@ function onMouseDown(event) {
 function onAudioTrue(note,freq) {
 	transform note into our variable name and then -> note.CharacterStyle.fillColor = "green";
 	come up with someFactor and then -> notesGroup.position = new Point(notePoint.width+fontSpace*__someFactor,notesGroup.position._y);
+	look at frequency and map it to range in round spec and then -> gLocator.position = freq*mapped factor
 }
 */
