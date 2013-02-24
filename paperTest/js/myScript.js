@@ -1,87 +1,117 @@
-/*
-// Create a Paper.js Path to draw a line into it:
-var path = new Path();
-// Give the stroke a color
-path.strokeColor = 'orange';
-var start = new Point(100, 100);
-// Move to start and draw a line from there
-path.moveTo(start);
-// Note the plus operator on Point objects.
-// PaperScript does that for us, and much more!
-path.lineTo(start + [ 100, -50 ]);
-*/
+//globals
+	var frequencies = {
+		'A': "A",
+		'aSharp': "A#",
+		'B': "B",
+		'C': "C",
+		'cSharp': "C#",
+		'D': "D",
+		'dSharp': "D#",
+		'E': "E",
+		'F': "F",
+		'fSharp': "F#",
+		'G': "G",
+		'gSharp': "G#"
+	};
 
-// rectangle
-var notes = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'];
-var size = new Size(600,150);
-var point = new Point(view.center._x/2,view.center._y/2)
-var center = view.center;
-var rectangle = new Rectangle(0, size);
-var cornerSize = new Size(10,10);
-var roundRectangleMask = new Path.RoundRectangle(rectangle,cornerSize);
-var roundRectangleMask = new Path.RoundRectangle(rectangle,cornerSize);
-roundRectangleMask.strokeWidth = 6;
-roundRectangleMask.position = view.center;
+	var width = 500,
+		height = 100,
+		fontSize = height / 3,
+		fontSpace = width / 5,
+		fontHeightMargin = height/(fontSize/5);
+	
+    //static points
+	var aPoint = {width: -width, height:fontHeightMargin};
+	var aSharpPoint = {width: -width+fontSpace, height:fontHeightMargin};
+	var bPoint = {width: -width+fontSpace*2, height:fontHeightMargin};
+	var cPoint = {width: -width+fontSpace*3, height:fontHeightMargin};
+	var cSharpPoint = {width: -width+fontSpace*4, height:fontHeightMargin};
+	var dPoint = {width: -width+fontSpace*5, height:fontHeightMargin};
+	var dSharpPoint = {width: -width+fontSpace*6, height:fontHeightMargin};
+	var ePoint = {width: -width+fontSpace*7, height:fontHeightMargin};
+	var fPoint = {width: -width+fontSpace*8, height:fontHeightMargin};
+	var fSharpPoint = {width: -width+fontSpace*9, height:fontHeightMargin};
+	var gPoint = {width: -width+fontSpace*10, height:fontHeightMargin};
+	var gSharpPoint = {width: -width+fontSpace*11, height:fontHeightMargin};
+
+// rectangle clipMask
+	var size = new Size(width,height);
+		point = new Point(view.center._x/2,view.center._y/2)
+		center = view.center;
+		rectangle = new Rectangle(0, size);
+		cornerSize = new Size(10,10);
+		roundRectangleMask = new Path.RoundRectangle(rectangle,cornerSize);
+	roundRectangleMask.strokeWidth = 6;
+	roundRectangleMask.position = view.center;
 
 // text
+	var A = new PointText(aPoint.width,aPoint.height);
+		A.content = frequencies.A;
+		A.characterStyle.fontSize = fontSize;
+	var aSharp = new PointText(aSharpPoint.width,aSharpPoint.height);
+		aSharp.content = frequencies.aSharp;
+		aSharp.characterStyle.fontSize = fontSize;
+	var B = new PointText(bPoint.width,bPoint.height);
+		B.content = frequencies.B;
+		B.characterStyle.fontSize = fontSize;
+	var C = new PointText(cPoint.width,cPoint.height);
+		C.content = frequencies.C;
+		C.characterStyle.fontSize = fontSize;
+	var cSharp = new PointText(cSharpPoint.width,cSharpPoint.height);
+		cSharp.content = frequencies.cSharp;
+		cSharp.characterStyle.fontSize = fontSize;
+	var D = new PointText(dPoint.width,dPoint.height);
+		D.content = frequencies.D;
+		D.characterStyle.fontSize = fontSize;
+	var dSharp = new PointText(dSharpPoint.width,dSharpPoint.height);
+		dSharp.content = frequencies.dSharp;
+		dSharp.characterStyle.fontSize = fontSize;
+	var E = new PointText(ePoint.width,ePoint.height);
+		E.content = frequencies.E;
+		E.characterStyle.fontSize = fontSize;
+	var F = new PointText(fPoint.width,fPoint.height);
+		F.content = frequencies.F;
+		F.characterStyle.fontSize = fontSize;
+	var fSharp = new PointText(fSharpPoint.width,fSharpPoint.height);
+		fSharp.content = frequencies.fSharp;
+		fSharp.characterStyle.fontSize = fontSize;
+	var G = new PointText(gPoint.width,gPoint.height);
+		G.content = frequencies.G;
+		G.characterStyle.fontSize = fontSize;
+	var gSharp = new PointText(gSharpPoint.width,gSharpPoint.height);
+		gSharp.content = frequencies.gSharp;
+		gSharp.characterStyle.fontSize = fontSize;
+	
+	var notesGroup = new Group([A,aSharp ,B,C,cSharp,D,dSharp,E,F,fSharp,G,gSharp]); 
+		notesGroup.position = view.center;
+	
+	var group = new Group([roundRectangleMask,notesGroup]);
+		group.clipped = true;
 
-var frequencies = {
-	'A': "A#",
-	'A#': "A#",
-	'B': "B",
-	'C': "C",
-	'C#': "C#",
-	'D': "D",
-	'D#': "D#",
-	'E': "E",
-	'F': "F",
-	'F#': "F#",
-	'G': "G",
-	'G#': "G#"
-};
+// rectangle
+	var roundRectangle = new Path.RoundRectangle(rectangle,cornerSize);
+		roundRectangle.strokeColor = '#0EBFE9';
+		roundRectangle.strokeWidth = 12;
+		roundRectangle.position = view.center;
 
-var A = new PointText(point);
-var aSharp = new PointText(point);
-var B = new PointText(point);
-var C = new PointText(point);
-var cSharp = new PointText(point);
-var D = new PointText(point);
-var dSharp = new PointText(point);
-var E = new PointText(point);
-var F = new PointText(point);
-var fSharp = new PointText(point);
-var G = new PointText(point);
-var gSharp = new PointText(point);
-
-var text = new PointText(point);
-var fontSize = 50;
-var textAdjuster = 20;
-text.characterStyle = {
-    fontSize: fontSize,
-    fillColor: 'black',
-};
-text.justification = 'center';
-text.position = view.center+fontSize-textAdjuster;
-text.content = frequencies;
-
-
-
-
-var group = new Group([roundRectangleMask,text]);
-group.clipped = true;
-
-var roundRectangle = new Path.RoundRectangle(rectangle,cornerSize);
-roundRectangle.strokeColor = '#0EBFE9';
-roundRectangle.strokeWidth = 12;
-roundRectangle.position = view.center;
-
-
+// function testers
 function onResize(event) {
     roundRectangleMask.position = view.center;
 	roundRectangle.position = view.center;
-    text.position = view.center+fontSize-textAdjuster;
+	notesGroup.position = view.center;
 }
 
-function onMouseDrag(event) {
-    text.position = event.point
+function onMouseDown(event) {
+    console.log(notesGroup.position);
+    notesGroup.position = new Point(aPoint.width+fontSpace*13.2,notesGroup.position._y);
+    console.log(notesGroup.position);
 }
+
+// pseudo code
+
+/*
+function onAudioTrue(note,freq) {
+	transform note into our variable name and then -> note.CharacterStyle.fillColor = "green";
+	come up with someFactor and then -> notesGroup.position = new Point(notePoint.width+fontSpace*__someFactor,notesGroup.position._y);
+}
+*/
