@@ -9,27 +9,27 @@
 	<script type='text/javascript' src='libraries/modernizr.js'></script>
 	<script type='text/javascript' src='libraries/underscore.js'></script>
 	<script type='text/javascript' src='libraries/paper.js'></script>
-	<script type='text/javascript' src='javascript/index.js'></script>
 	<script type='text/javascript' src='javascript/tuner.js'></script>
-
-		<script type="text/paperscript" canvas="myCanvas">
-
-			var myCircle = new Path.Circle(new Point(100, 70), 50);
-			myCircle.fillColor = 'black';
-
-		</script>
+	<script type='text/paperscript' src="javascript/paperTuner.js" canvas="myCanvas"></script>
 
 	</head>
 	<body>
-		<section class='project-list'>
-		    <h2 class='project' id='tuner'>Load Tuner</h2>
-		</section>
+		<p class='project' id='tuner' onclick='Tuner(), changeText()'>Load Tuner</p>
 		
-		<section class='project-displays'>
-			<div class='tuner animate'>
-				<canvas id="myCanvas"></canvas>
-					<div></div>
-			</div>
-		</section>
+		<div class='tuner'>
+			<div id="noteName"></div>
+			<canvas resize="true" keepalive="false" id="myCanvas"></canvas>
+		</div>
+
 	</body>
+	
+	<script type="text/javascript">
+		var load = true;
+		var changeText = function() {
+			if (load) {
+				document.getElementById('tuner').innerHTML = 'Refresh Tuner';
+			}
+		}
+	</script>
 </html>
+
